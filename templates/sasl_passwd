@@ -1,0 +1,2 @@
+{{ EXT_RELAY_HOST }}:25 {{ SMTP_LOGIN }}:{{ SMTP_PASSWORD }}
+

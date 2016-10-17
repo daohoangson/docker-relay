@@ -1,14 +1,5 @@
 FROM alpine:edge
-MAINTAINER Bojan Cekrlic
-
-# You can set this variables when running the image to override the host name or
-# foward the messages to another server
-# ENV	HOSTNAME
-# Hostname that will be used in the outgoing mail
-# ENV	RELAYHOST
-# The relay host for this server
-# ENV	ALLOWED_SENDER_DOMAINS
-# Limit the list of sending domains to this list only
+MAINTAINER Dao Hoang Son <daohoangson@gmail.com>
 
 RUN	true && \
 	apk add --no-cache --update postfix ca-certificates supervisor rsyslog bash && \
@@ -16,13 +7,13 @@ RUN	true && \
 
 COPY	supervisord.conf /etc/supervisord.conf
 COPY	rsyslog.conf /etc/rsyslog.conf
-COPY	postfix.sh /postfix.sh
-RUN	chmod +x /postfix.sh
+COPY	templates /root/templates
+COPY	run.sh /root/run.sh
+COPY	test.sh /root/test.sh
+RUN		chmod +x /root/*.sh
 
 VOLUME	[ "/var/spool/postfix", "/etc/postfix" ]
 
-USER	root
-WORKDIR	/tmp
+EXPOSE 25
 
-EXPOSE 587
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/root/run.sh"]
