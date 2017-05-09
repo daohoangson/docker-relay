@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t xfrocks/docker-relay . \
-	&& docker push xfrocks/docker-relay
+docker build -t xfrocks/relay . \
+	&& docker push xfrocks/relay
