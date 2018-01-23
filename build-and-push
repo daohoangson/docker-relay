@@ -1,9 +1,23 @@
 #!/bin/sh
 
-VERSION="3.1.3"
-TAG="xfrocks/relay"
-TAG_WITH_VERSION="$TAG:$VERSION"
+set -e
 
-docker build -t "$TAG" -t "$TAG_WITH_VERSION" . \
-	&& docker push "$TAG" \
-	&& docker push "$TAG_WITH_VERSION"
+_hubImage="xfrocks/relay"
+_hubImageWithTag="$_hubImage:3.2.4"
+
+docker build \
+  -t "$_hubImage" \
+  -t "$_hubImageWithTag" \
+  .
+
+while true
+do
+  read -p "Push $_hubImage and $_hubImageWithTag? [yN]" yn
+  case $yn in
+    [Yy]* ) break;;
+    * )
+      exit 0;;
+  esac
+done
+docker push "$_hubImage"
+docker push "$_hubImageWithTag"
