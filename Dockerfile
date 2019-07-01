@@ -1,12 +1,15 @@
-FROM alpine:3.7
+FROM alpine:3.10
 MAINTAINER Dao Hoang Son <daohoangson@gmail.com>
 
-# https://pkgs.alpinelinux.org/packages?name=postfix&branch=v3.7
-ENV POSTFIX_VERSION=3.2.4-r1
+# https://pkgs.alpinelinux.org/packages?name=postfix&branch=v3.10
+ENV POSTFIX_VERSION=3.4.5-r0
 
-RUN	true \
+RUN true \
   && apk add --no-cache \
     ca-certificates \
+    cyrus-sasl \
+    cyrus-sasl-plain \
+    libsasl \
     postfix=${POSTFIX_VERSION} \
     rsyslog \
     supervisor \

@@ -3,7 +3,7 @@
 set -e
 
 _hubImage="xfrocks/relay"
-_hubImageWithTag="$_hubImage:3.2.4"
+_hubImageWithTag="$_hubImage:3.4.5"
 
 docker build \
   -t "$_hubImage" \
